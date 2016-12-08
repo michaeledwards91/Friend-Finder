@@ -185,10 +185,32 @@
 
 		$("#submit").on("click", function() {
 			console.log("submit clicked");
+			// Form validation
+	    	function validateForm() {
+			  	var isValid = true;
+			  	$('.form-control').each(function() {
+			    	if ( $(this).val() === '' )
+			        	isValid = false;
+			  	});
+
+			  	$('.chosen-select').each(function() {
+
+			  		if( $(this).val() === "")
+			  			isValid = false
+			  	})
+			  	return isValid;
+			}
+
+			if (validateForm() == true) {
+				console.log("validate true");
+			} else {
+				alert("Please fill out all forms before submitting.");
+			}
+
 		});
 
 
-		
+
 	</script>
 </body>
 </html>
