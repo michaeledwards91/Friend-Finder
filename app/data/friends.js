@@ -1,17 +1,17 @@
 var friendsArray = [
 	{
 		name: "Dog",
-		photo: "http://www.memecreator.org/static/images/templates/49.jpg",
+		photo: "https://pbs.twimg.com/profile_images/378800000822867536/3f5a00acf72df93528b6bb7cd0a4fd0c.jpeg",
 		scores: ["1", "5", "3", "4", "2", "2", "1", "4", "1", "5"]
 	}
 ];
-
+//Friend constructor to build dummy data.
 function Friend(name, photoURL) {
 	this.name = name;
 	this.photo = photoURL;
 	this.scores = generateScores();
 }
-
+//Generates 10 random numbers, converts them to strings, and pushes them to a scores array. Used to generate dummy scores for dummy friends.
 function generateScores() {
 	var scores = [];
 	for (var i = 0; i < 10; i++) {
