@@ -2,7 +2,7 @@ var friendsArray = [
 	{
 		name: "Dog",
 		photo: "http://www.memecreator.org/static/images/templates/49.jpg",
-		scores: [1, 5, 3, 4, 2, 2, 1, 4, 1, 5]
+		scores: ["1", "5", "3", "4", "2", "2", "1", "4", "1", "5"]
 	}
 ];
 
@@ -15,7 +15,7 @@ function Friend(name, photoURL) {
 function generateScores() {
 	var scores = [];
 	for (var i = 0; i < 10; i++) {
-		scores.push(Math.floor((Math.random() * 5)+1));
+		scores.push((Math.floor((Math.random() * 5)+1)).toString());
 	}
 	return scores;
 }

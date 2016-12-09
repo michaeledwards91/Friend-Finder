@@ -29,7 +29,7 @@
 		<hr>
 
 		<h3><strong>Question 1</strong></h3>
-		<h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+		<h4>You make friends easily.</h4>
 	 	<select data-placeholder="" class="chosen-select" id="q1">
 	 		<option value=""></option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -40,7 +40,7 @@
       	</select>
 
 		<h3><strong>Question 2</strong></h3>
-		<h4>Generally speaking, you rely more on your experience than your imagination.</h4>
+		<h4>You have a vivid imagination.</h4>
 	 	<select data-placeholder="" class="chosen-select" id="q2">
 	 		<option value=""></option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -52,7 +52,7 @@
 
 
 		<h3><strong>Question 3</strong></h3>
-		<h4>You find it easy to stay relaxed and focused even when there is some pressure.</h4>
+		<h4>You trust others.</h4>
 	 	<select data-placeholder="" class="chosen-select" id="q3">
 	 		<option value=""></option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -64,7 +64,7 @@
 
 
 		<h3><strong>Question 4</strong></h3>
-		<h4>You rarely do something just out of sheer curiosity.</h4>
+		<h4>You follow the rules.</h4>
 	 	<select data-placeholder="" class="chosen-select" id="q4">
 	 		<option value=""></option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -88,7 +88,7 @@
 
 
 		<h3><strong>Question 6</strong></h3>
-		<h4>It is often difficult for you to relate to other people’s feelings.</h4>
+		<h4>You are a leader.</h4>
 	 	<select data-placeholder="" class="chosen-select" id="q6">
 	 		<option value=""></option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -100,7 +100,7 @@
 
 
 		<h3><strong>Question 7</strong></h3>
-		<h4>In a discussion, truth should be more important than people’s sensitivities.</h4>
+		<h4>You like to visit new places.</h4>
 	 	<select data-placeholder="" class="chosen-select" id="q7">
 	 		<option value=""></option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -111,7 +111,7 @@
       	</select>
 
 		<h3><strong>Question 8</strong></h3>
-		<h4>You rarely get carried away by fantasies and ideas.</h4>
+		<h4>You choose your words carefully.</h4>
 	 	<select data-placeholder="" class="chosen-select" id="q8">
 	 		<option value=""></option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -122,7 +122,7 @@
       	</select>
 
 		<h3><strong>Question 9</strong></h3>
-		<h4>You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</h4>
+		<h4>You believe criminals should receive help rather than punishment.</h4>
 	 	<select data-placeholder="" class="chosen-select" id="q9">
 	 		<option value=""></option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -133,7 +133,7 @@
       	</select>
 
 		<h3><strong>Question 10</strong></h3>
-		<h4>You feel more energetic after spending time with a group of people.</h4>
+		<h4>You get stressed easily.</h4>
 	 	<select data-placeholder="" class="chosen-select" id="q10">
 	 		<option value=""></option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -185,7 +185,7 @@
 
 		$("#submit").on("click", function() {
 			console.log("submit clicked");
-			// Form validation
+			// Form validation, makes sure all input fields have been filled
 	    	function validateForm() {
 			  	var isValid = true;
 			  	$('.form-control').each(function() {
@@ -200,9 +200,29 @@
 			  	})
 			  	return isValid;
 			}
-
+			//If all input fields have been filled, collect data and post it to API
 			if (validateForm() == true) {
-				console.log("validate true");
+				var userScores = [];
+				//Loop through question fields and pull values to populate user's scores array
+				for (var i = 1; i <= 10; i++) {
+					var selector = "#q"+i;
+					userScores.push($(selector).val());
+				}
+				//Use user inputs to build object to push to API
+				var userInfo = {
+					name: $("#name").val().trim(),
+					photo: $("#photo").val().trim(),
+					scores: userScores
+				}
+
+				var baseUrl = window.location.origin;
+				console.log(baseUrl);
+
+				$.post(baseUrl+"/api/friends", userInfo, function(data) {
+					console.log(data);
+					$("#resultsModal").modal("toggle");
+				})
+
 			} else {
 				alert("Please fill out all forms before submitting.");
 			}
