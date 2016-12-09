@@ -37,7 +37,7 @@ module.exports = function (app) {
 		}
 		//Send best match back
 		res.send(bestMatch);
-
+		
 		friendsArray.push(req.body);
 	});
 }
