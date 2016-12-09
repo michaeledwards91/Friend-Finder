@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<!-- jQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<!-- Chosen -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
@@ -183,8 +184,8 @@
 		
 		$(".chosen-select").chosen();
 
-		$("#submit").on("click", function() {
-			console.log("submit clicked");
+		$("#submit").on("click", function(e) {
+			e.preventDefault();
 			// Form validation, makes sure all input fields have been filled
 	    	function validateForm() {
 			  	var isValid = true;
@@ -220,6 +221,9 @@
 
 				$.post(baseUrl+"/api/friends", userInfo, function(data) {
 					console.log(data);
+					$("#matchName").text(data.name);
+	    			$('#matchImg').attr("src", data.photo);
+
 					$("#resultsModal").modal("toggle");
 				})
 
